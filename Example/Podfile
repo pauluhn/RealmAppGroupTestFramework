@@ -2,6 +2,9 @@ use_frameworks!
 
 target 'RealmAppGroupTestFramework_Example' do
   pod 'RealmAppGroupTestFramework', :path => '../'
+  pod 'RealmSwift'
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
 
   target 'RealmAppGroupTestFramework_Tests' do
     inherit! :search_paths
