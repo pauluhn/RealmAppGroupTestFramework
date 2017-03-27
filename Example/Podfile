@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'RealmAppGroupTestFramework_Example' do
+  pod 'RealmAppGroupTestFramework', :path => '../'
+
+  target 'RealmAppGroupTestFramework_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
