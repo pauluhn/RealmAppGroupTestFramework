@@ -9,10 +9,10 @@
 import Foundation
 import RealmSwift
 
-class SyncModel: Object {
-    dynamic var id = ""
-    dynamic var name = ""
-    override static func primaryKey() -> String? { return "id" }
+public class SyncModel: Object {
+    public dynamic var id = ""
+    public dynamic var name = ""
+    public override static func primaryKey() -> String? { return "id" }
     convenience init(id: String, name: String) {
         self.init()
         self.id = id
