@@ -12,7 +12,6 @@ public typealias CompletionBlock = () -> Void
 
 public struct SyncClient {
     public static func sync(completion: CompletionBlock?) {
-        print(#function)
         queue.async {
             var endpoints: [SyncEndpoint] = []
             endpoints.append(.first { sync(endpoint: endpoints[1]) })

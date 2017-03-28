@@ -11,7 +11,6 @@ import SwiftyJSON
 
 struct SyncBuilder {
     static func build(_ data: Any) -> [SyncModel] {
-        print(#function)
         let json = JSON(data)
         guard let array = json["group"]["members"].array else { return [] }
         return array.map {
