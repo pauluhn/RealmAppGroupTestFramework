@@ -32,8 +32,15 @@ public struct SyncClient {
             sync(endpoint: endpoints[0])
         }
     }
+    public static func add(completion: CompletionBlock?) {
+        addQueue.async {
+            let model = SyncModel(id: UUID().uuidString, name: UUID().uuidString)
+            SyncTransaction(models: [model], completion: completion).perform()
+        }
+    }
 
     private static let queue = DispatchQueue(label: "sync client queue", qos: .userInitiated)
+    private static let addQueue = DispatchQueue(label: "sync client add queue", qos: .userInitiated)
     private enum SyncEndpoint {
         case first(completion: CompletionBlock)
         case second(completion: CompletionBlock)
