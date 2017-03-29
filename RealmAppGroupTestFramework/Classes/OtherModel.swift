@@ -31,4 +31,17 @@ public class OtherModel: Object {
             print(error.localizedDescription)
         }
     }
+    public func otherRealmSave(completion: CompletionBlock?) {
+        let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.blackelephants.RealmAppGroupTest").map { $0.appendingPathComponent("other.realm") }
+        let config = Realm.Configuration(fileURL: url, deleteRealmIfMigrationNeeded: true)
+        do {
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                realm.add(self, update: true)
+            }
+            completion?()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
