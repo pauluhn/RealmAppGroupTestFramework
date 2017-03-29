@@ -21,4 +21,15 @@ public struct SyncFetch {
         }
         return nil
     }
+    public static func otherFetch(completion: CompletionBlock?) {
+        do {
+            let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.blackelephants.RealmAppGroupTest").map { $0.appendingPathComponent("default.realm") }
+            let config = Realm.Configuration(fileURL: url, deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
+            _ = realm.objects(OtherModel.self)
+            completion?()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
