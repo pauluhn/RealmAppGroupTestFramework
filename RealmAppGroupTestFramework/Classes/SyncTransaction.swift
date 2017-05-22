@@ -11,8 +11,6 @@ import RealmSwift
 
 typealias TransactionBlock = (Realm) -> Void
 
-private var printUrl = true
-
 struct SyncTransaction {
     let transactionBlock: TransactionBlock
     let completionBlock: CompletionBlock?
@@ -22,13 +20,7 @@ struct SyncTransaction {
     }
     func perform() {
         do {
-            let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.blackelephants.RealmAppGroupTest").map { $0.appendingPathComponent("default.realm") }
-            if printUrl {
-                printUrl = false
-                print(url)
-            }
-            let config = Realm.Configuration(fileURL: url, deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm(configuration: config)
+            let realm = try MyRealm.realm()
             try realm.write {
                 transactionBlock(realm)
             }

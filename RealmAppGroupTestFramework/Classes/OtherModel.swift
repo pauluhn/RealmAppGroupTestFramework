@@ -19,10 +19,8 @@ public class OtherModel: Object {
         self.name = name
     }
     public func save(completion: CompletionBlock?) {
-        let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.blackelephants.RealmAppGroupTest").map { $0.appendingPathComponent("default.realm") }
-        let config = Realm.Configuration(fileURL: url, deleteRealmIfMigrationNeeded: true)
         do {
-            let realm = try Realm(configuration: config)
+            let realm = try MyRealm.realm()
             try realm.write {
                 realm.add(self, update: true)
             }
