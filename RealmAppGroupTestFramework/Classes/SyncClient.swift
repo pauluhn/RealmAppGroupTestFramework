@@ -12,6 +12,10 @@ public typealias CompletionBlock = () -> Void
 
 public struct SyncClient {
     public static func sync(completion: CompletionBlock?) {
+        let taskId = UIApplication.shared.beginBackgroundTask {
+            print("background task killed")
+        }
+        print("...task id is \(taskId.description)")
         queue.async {
             var endpoints: [SyncEndpoint] = []
             endpoints.append(.first { sync(endpoint: endpoints[1]) })
@@ -28,7 +32,10 @@ public struct SyncClient {
             endpoints.append(.twelfth { sync(endpoint: endpoints[12]) })
             endpoints.append(.thirteenth { sync(endpoint: endpoints[13]) })
             endpoints.append(.fourteenth { sync(endpoint: endpoints[14]) })
-            endpoints.append(.fifteenth { completion?() })
+            endpoints.append(.fifteenth {
+                completion?()
+                UIApplication.shared.endBackgroundTask(taskId)
+            })
             sync(endpoint: endpoints[0])
         }
     }

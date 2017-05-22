@@ -29,10 +29,17 @@ struct SyncTransaction {
             }
             let config = Realm.Configuration(fileURL: url, deleteRealmIfMigrationNeeded: true)
             let realm = try Realm(configuration: config)
+            let taskId = UIApplication.shared.beginBackgroundTask {
+                print("background task killed")
+            }
+            print("...task id is \(taskId.description)")
             try realm.write {
                 transactionBlock(realm)
             }
             completionBlock?()
+            print("___before end")
+            UIApplication.shared.endBackgroundTask(taskId)
+            print("___after end")
         } catch {
             print(error.localizedDescription)
         }
