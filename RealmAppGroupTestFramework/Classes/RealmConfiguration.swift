@@ -27,11 +27,14 @@ struct MyRealm {
         }
     }
     static var version: UInt64 {
-        return 1
+        return 2
     }
     static var block: MigrationBlock {
         return { migration, oldVersion in
             if oldVersion < 1 {
+                // blah
+            }
+            if oldVersion < 2 {
                 // blah
             }
         }
